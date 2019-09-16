@@ -287,6 +287,9 @@ For simplicity sake:
 - `votes$` takes an array of ID's you want the updates for. 
 - `comments$` can show you if it has unread messages for an array of ID's.
 
+// TODO - Both exercise and proper example in here. But not done!
+https://stackblitz.com/edit/angular-ttsugb
+
 
 ----
 
