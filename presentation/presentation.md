@@ -7,7 +7,7 @@
 <div style="">
   <img src="assets/bjorn.jpg" width="100" style="border-radius:100%; display: inline-flex;">
   <h1 style="font-size: 0.9em;">Bjorn Schijff</h1>
-  <small style="display: inline-flex;">Frontend Software Engineer @ BliepBloep</small><br />
+  <small style="display: inline-flex;">Frontend Software Engineer @ Politie</small><br />
   <img src="assets/codestar.svg" height="30" style="border: 0; background-color: transparent;"><br /><br />
    <small>@Bjeaurn<br /> bjorn.schijff@ordina.nl</small>
 </div>
@@ -231,6 +231,8 @@ To summarize:
 
 Exercise time!
 
+`exercises/1_cleaning_up_streams.md`
+
 ---
 
 ### Reactively managing your lifecycle
@@ -287,13 +289,11 @@ For simplicity sake:
 - `votes$` takes an array of ID's you want the updates for. 
 - `comments$` can show you if it has unread messages for an array of ID's.
 
-// TODO - Both exercise and proper example in here. But not done!
-https://stackblitz.com/edit/angular-ttsugb
-
-
 ----
 
-// TODO Exercise that works with the above example.
+Exercise 2!
+
+`exercises/2_grouping_streams.md`
 
 ---
 
