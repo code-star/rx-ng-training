@@ -1,4 +1,4 @@
-# Exercise 2
+# Exercise 4
 
 Make a fork of this stackblitz:
 https://stackblitz.com/edit/rx-exercise-2?file=src/app/app.component.ts

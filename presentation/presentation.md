@@ -69,6 +69,7 @@ Property 'data' has no initializer and is not definitely assigned in the constru
 
 - Get familiar with multiple ways of managing your streams <!--.element: class="fragment" -->
 - Know when to pick which method <!--.element: class="fragment" -->
+- Look around and experiment with a few "common" use cases. <!--.element: class="fragment" -->
 
 ---
 
@@ -229,12 +230,6 @@ To summarize:
 
 ---
 
-Exercise time!
-
-`exercises/1_cleaning_up_streams.md`
-
----
-
 ### Reactively managing your lifecycle
 What if you can't let Angular manage your Observable?<!--.element: class="fragment" -->
 
@@ -270,8 +265,180 @@ This is "overkill" for a couple of reasons:
 
 <small>So stay vigilant!</small><!--.element: class="fragment" -->
 
+---
+
+Exercise time!
+
+`exercises/1_cleaning_up_streams.md`
+
+---
+
+### Easening pressure on the backend
+Or hitting the backend less often.
+
 ----
 
+Why do we do this?
+
+- Frontend Performance<!--.element: class="fragment" -->
+- Better UX<!--.element: class="fragment" -->
+- Less stress on backend<!--.element: class="fragment" -->
+
+----
+
+```ts
+@Injectable()
+export class DataService {
+    searchData(searchQuery: string): Observable<Data> {
+        const url = 'my-data-url/:query'.replace(':query', searchQuery)
+        return this.http.get(url)
+    }
+}
+```
+
+Hits the backend everytime, when a part of the application subscribes.<!--.element: class="fragment" -->
+
+---
+
+```ts
+@Component({...})
+export class SearchComponent {
+    ngOnInit() {
+        this.results$ = reactiveSearch.valueChanges.pipe(
+            switchMap(query => this.dataService.searchData(query))
+        )
+    }
+}
+```
+
+Hits the backend on every value change.<!--.element: class="fragment" -->
+
+----
+
+## We can do better!
+
+---
+
+## Debouncing, buffering, filtering & unique values only
+
+----
+
+```ts
+this.results$ = rxSearch.valueChanges.pipe(
+    debounceTime(400),
+    switchMap(query => this.dataService.search(query))
+)
+```
+
+Buffers for 400ms, and passes the latest values after the debounce finishes.<!--.element: class="fragment" -->
+
+----
+
+```ts
+const MINIMUM_LENGTH = 2
+this.results$ = rxSearch.valueChanges.pipe(
+    filter(query => query.length >= MINIMUM_LENGTH)
+)
+```
+
+Makes sure no queries with too little characters hits the backend.<!--.element: class="fragment" -->
+
+----
+
+```ts
+this.results$ = rxSearch.valueChanges.pipe(
+    distinctUntilChanges()
+)
+```
+
+Only sends the value through the Reactive pipeline when the value has changed.<!--.element: class="fragment" -->
+
+---
+
+## Caching & Memoization
+
+----
+
+```ts
+@Injectable()
+export class DataService {
+    getData(): Observable<Data[]> {
+        const url = 'my-data-url/'
+        return this.http.get(url)
+    }
+}
+```
+
+Hits the backend everytime, when a part of the application subscribes.<!--.element: class="fragment" -->
+
+----
+
+```ts
+private cache: Data[] = []
+getData(): Observable<Data[]> {
+    if(this.cache) {
+        return of(this.cache)
+    } else {
+        return this.fetchData()
+    }
+}
+```
+```ts
+private fetchData(): Observable<Data[]> {
+    const url = 'my-data-url/'
+    return this.http.get(url).pipe(
+        tap(data => this.cache = data)
+    )
+}
+```
+Very simple caching. But not very Reactive...<!--.element: class="fragment" -->
+
+----
+
+```ts
+private cache: Observable<Data[]>
+
+getData() {
+    if(!this.cache) {
+        this.cache = this.fetchData().pipe(
+            shareReplay(1) // Buffersize of 1
+        )
+    }
+    return this.cache
+}
+```
+
+Better! But the same issue persists. <!--.element: class="fragment" -->
+
+Cache doesn't invalidate.<!--.element: class="fragment" -->
+
+----
+
+Cache should be cleaned up regularly. Many ways you can achieve this! 
+But important to keep it simple.
+
+```ts
+// Just an example. Effective, but not very reactive.
+private cache: { cache: Observable<Data[]>, 
+                lastRequest: number, 
+                lastCached: number } = {
+    cache: of([]),
+    lastRequest: 0,
+    lastCached: 0
+}
+```
+<!--.element: class="fragment" -->
+
+---
+
+## Exercise 2
+
+Clean up the search so it does not ask the backend as much. Keep it reactive!
+`exercises/2_reactive_search.md`
+
+---
+
+// Extra
 ```ts
 user$: Observable<User>
 news$: Observable<NewsPost[]>
@@ -290,12 +457,6 @@ For simplicity sake:
 - `comments$` can show you if it has unread messages for an array of ID's.
 
 ----
-
-Exercise 2!
-
-`exercises/2_grouping_streams.md`
-
----
 
 ### Optimizing for less subscriptions
 

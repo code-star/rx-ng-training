@@ -63,3 +63,11 @@ This will however make the strict compiler complain about `data$` not being set 
 Show ways to mitigate these situations, what works best etc.
 
 Same goes for subscribing. 
+
+
+- Advanced RxJS in Angular (google search)
+
+Prevent hitting the backend too often
+- "Search" example
+- Memoization/caching in Angular/RxJS
+
