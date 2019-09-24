@@ -438,7 +438,13 @@ Clean up the search so it does not ask the backend as much. Keep it reactive!
 
 ---
 
-// Extra
+// TODO TODO TODO
+
+https://medium.com/@thomasburlesonIA/push-based-architectures-with-rxjs-81b327d7c32d
+
+Maybe use this idea? Instead of this example, change it to a complex "Search" example with plenty of options to add.
+How to turn that into a reactive heaven?
+
 ```ts
 user$: Observable<User>
 news$: Observable<NewsPost[]>
