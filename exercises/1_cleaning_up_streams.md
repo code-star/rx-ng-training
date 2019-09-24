@@ -4,4 +4,4 @@ Fork the following Stackblitz and clean up the streams so they do not produce me
 
 https://stackblitz.com/edit/rx-exercise-1?file=src/app/app.component.ts
 
-~5-10 minutes.
+~5-15 minutes.
