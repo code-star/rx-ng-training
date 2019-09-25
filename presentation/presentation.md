@@ -441,8 +441,10 @@ Clean up the search so it does not ask the backend as much. Keep it reactive!
 
 // TODO TODO 
 SwitchMap vs. MergeMap vs. ExhaustMap
+https://medium.com/@luukgruijs/understanding-rxjs-map-mergemap-switchmap-and-concatmap-833fc1fb09ff
 
 ReactiveForms kort?
+
 
 ---
 
