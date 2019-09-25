@@ -439,6 +439,13 @@ Clean up the search so it does not ask the backend as much. Keep it reactive!
 
 ---
 
+// TODO TODO 
+SwitchMap vs. MergeMap vs. ExhaustMap
+
+ReactiveForms kort?
+
+---
+
 // TODO TODO TODO
 
 https://medium.com/@thomasburlesonIA/push-based-architectures-with-rxjs-81b327d7c32d
