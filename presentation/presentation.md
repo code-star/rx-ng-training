@@ -383,6 +383,7 @@ getData(): Observable<Data[]> {
     }
 }
 ```
+
 ```ts
 private fetchData(): Observable<Data[]> {
     const url = 'my-data-url/'
