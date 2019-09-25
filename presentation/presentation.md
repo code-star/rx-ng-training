@@ -570,10 +570,16 @@ Whilst we wait for new reactive implementations using Ivy<!--.element: class="fr
 ### Summary
 
 - Be thoughtful of managing your subscriptions.<!--.element: class="fragment" -->
-- Let Angular take care of it where you can!<!--.element: class="fragment" -->
 - RxJS can help you manage the load on backends<!--.element: class="fragment" -->
 - Different operators can help you manage your streams.<!--.element: class="fragment" -->
 - Many options in ReactiveForms.<!--.element: class="fragment" -->
+
+---
+
+### Further exploration
+- Exponentional back-off (using HTTP_INTERCEPTORS)<!--.element: class="fragment" -->
+- Advanced error handling<!--.element: class="fragment" -->
+- Sharing Observables to prevent multiple API calls.<!--.element: class="fragment" -->
 
 ---
 
