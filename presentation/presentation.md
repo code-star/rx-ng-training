@@ -439,12 +439,129 @@ Clean up the search so it does not ask the backend as much. Keep it reactive!
 
 ---
 
-// TODO TODO 
-SwitchMap vs. MergeMap vs. ExhaustMap
-https://medium.com/@luukgruijs/understanding-rxjs-map-mergemap-switchmap-and-concatmap-833fc1fb09ff
+## Managing Reactive Forms
 
-ReactiveForms kort?
+----
 
+```html
+<button (click)="submitFn()">Save</button>
+```
+
+```ts
+submitFn() {
+    console.log(this.formGroup.value)
+}
+```
+
+----
+
+### Is that the best we can do?
+
+Unfortunately, so far it's close.<!--.element: class="fragment" -->
+
+<div class="fragment">FormGroup has no `onSubmit` stream.</div>
+
+----
+
+```html
+<button #submitBtn type="submit">Save</button>
+```
+
+```ts
+@ViewChild('submitBtn') submitBtn: ElementRef
+
+// import { fromEvent } from 'rxjs'
+
+fromEvent(this.submitBtn.nativeElement, 'click')
+        .subscribe(console.log)
+```
+
+Quite nice! But requires an additional ViewChild to be setup.<!--.element: class="fragment" -->
+
+----
+
+FormGroup does offer a `(ngSubmit)="submitFn()"`
+
+```html
+<form [formGroup]="formGroup" (ngSubmit)="submitFn()">
+    ...
+</form>
+```
+
+Works similar to the (click)="submitFn()" solution, not really reactive unfortunately...<!--.element: class="fragment" -->
+
+----
+
+In summary:
+
+- You can get a stream from click events.<!--.element: class="fragment" -->
+- You will have to manage the subscription yourself though!<!--.element: class="fragment" -->
+- Other options are hard to properly make reactive.<!--.element: class="fragment" -->
+
+So choose wisely!<!--.element: class="fragment" -->
+
+---
+
+#### SwitchMap / MergeMap / ConcatMap / ExhaustMap
+
+Note: Talked about this shortly in RxJS 101.
+
+----
+
+### SwitchMap
+
+- Switches to new Observable, maps result.<!--.element: class="fragment" -->
+- Cancels previous (in-flight) calls.<!--.element: class="fragment" -->
+
+----
+
+### MergeMap
+- Merges in a new Observable, maps result<!--.element: class="fragment" -->
+- Keeps running all inner Observables.<!--.element: class="fragment" -->
+- Does not care about the order of completing inner Observables.<!--.element: class="fragment" -->
+- Used for "write calls", when you do not want to cancel an in-flight call.<!--.element: class="fragment" -->
+
+----
+
+### ConcatMap
+- Same as MergeMap, except it does wait for the order of Observables to complete.<!--.element: class="fragment" -->
+
+----
+
+### ExhaustMap
+- Waits for the inner Observable to complete, before accepting new inputs.<!--.element: class="fragment" -->
+- Basically waits for an in-flight call to finish or error before accepting new inputs.<!--.element: class="fragment" -->
+
+----
+
+In short; when you want to prevent a form from submitting multiple times, `ExhaustMap` is your friend. You will need to use a stream as an input; it will not work as expected if the base (outer) Observable completes.
+
+---
+
+## Exercise 3
+
+We have a reactiveForm that we want to submit.
+Make sure it's all hooked up properly and sends off the results to our "backend", without hitting the backend too often.
+
+`exercises/3_send_to_backend.md`
+
+---
+
+## Honorable mention!
+
+```sh
+ng add @typebytes/ngx-template-streams
+```
+
+```html
+<button type="submit" (*click)="clicks$">Submit</button>
+```
+```ts
+@ObservableEvent()
+clicks$: Observable<any>;
+
+clicks$.subscribe(console.log)
+```
 
 ---
 
