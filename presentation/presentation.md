@@ -563,43 +563,27 @@ clicks$: Observable<any>;
 clicks$.subscribe(console.log)
 ```
 
----
-
-// TODO TODO TODO
-
-https://medium.com/@thomasburlesonIA/push-based-architectures-with-rxjs-81b327d7c32d
-
-Maybe use this idea? Instead of this example, change it to a complex "Search" example with plenty of options to add.
-How to turn that into a reactive heaven?
-
-```ts
-user$: Observable<User>
-news$: Observable<NewsPost[]>
-votes$: Observale<VotesPerNewsPost[]>
-comments$: Observable<Comments[]>
-```
-<small>Gets more interesting in this situation, as your HTML will start to get messy.
-You may want to setup some logic to combine data before it hits the HTML.</small>
-
-----
-
-So let's assume `votes$` and `comments$` are on a timer, or even live; and update more frequently.
-
-For simplicity sake: 
-- `votes$` takes an array of ID's you want the updates for. 
-- `comments$` can show you if it has unread messages for an array of ID's.
-
-----
-
-### Optimizing for less subscriptions
-
-- Combining relevant data into a single subscription.
-- Naturally splitting data streams into separate components.
-
-----
-
-// TODO: Find an example!
+Whilst we wait for new reactive implementations using Ivy<!--.element: class="fragment" -->
 
 ---
 
+### Summary
 
+- Be thoughtful of managing your subscriptions.<!--.element: class="fragment" -->
+- Let Angular take care of it where you can!<!--.element: class="fragment" -->
+- RxJS can help you manage the load on backends<!--.element: class="fragment" -->
+- Different operators can help you manage your streams.<!--.element: class="fragment" -->
+- Many options in ReactiveForms.<!--.element: class="fragment" -->
+
+---
+
+Thank you! 👏
+
+----
+
+<div style="">
+  <img src="assets/bjorn.jpg" width="100" style="border-radius:100%; display: inline-flex;">
+  <h1 style="font-size: 0.9em;">Bjorn Schijff</h1>
+  <img src="assets/codestar.svg" height="30" style="border: 0; background-color: transparent;"><br /><br />
+   <small>@Bjeaurn<br /> bjorn.schijff@ordina.nl</small>
+</div>
