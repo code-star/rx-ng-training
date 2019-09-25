@@ -71,3 +71,9 @@ Prevent hitting the backend too often
 - "Search" example
 - Memoization/caching in Angular/RxJS
 
+Same goes for subscribing. 
+
+- https://oasisdigital.com/class/rxjs-angular
+- https://medium.com/@thomasburlesonIA/push-based-architectures-with-rxjs-81b327d7c32d
+- Building a caching mechanism? https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html
+- 
