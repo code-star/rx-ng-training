@@ -7,4 +7,4 @@ Fork the following Stackblitz,
 
 https://stackblitz.com/edit/rx-exercise-2?file=src/app/app.component.ts
 
-~15-20 minutes.
+~10-20 minutes.
