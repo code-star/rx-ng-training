@@ -347,7 +347,7 @@ Makes sure no queries with too little characters hits the backend.<!--.element: 
 
 ```ts
 this.results$ = rxSearch.valueChanges.pipe(
-    distinctUntilChanges()
+    distinctUntilChanged()
 )
 ```
 
