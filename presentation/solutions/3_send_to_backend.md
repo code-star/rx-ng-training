@@ -19,4 +19,4 @@ Here you could have a filter() inside the pipe to check for values, or an if sta
 
 3) Bonus: Make sure it doesn't send until the values are filled. You can do this by adding Angular validators to the FormControls.
 
-// TODO - Expand this with a possible Subject to emit form values, for an inbetween solution. Needs to be added to the slides to (revise slides anyway), and add to the // example code.
+Note: When using the `fromEvent()` as a base (for like a `this.submit$`), this is the most reactive indeed; but considering you've turned it into a Hot observable, make sure you shut it down properly on `ngOnDestroy()`.

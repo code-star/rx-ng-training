@@ -492,11 +492,27 @@ Works similar to the (click)="submitFn()" solution, not really reactive unfortun
 
 ----
 
+An option is to manage your own Subject.
+
+```ts
+private submit$$ = new Subject()
+public submit$ = this.submit$$.asObservable()
+
+submitFn() {
+    this.submit$$.next()
+}
+
+```
+
+Note: Pros & Cons, more control about when to submit and filter/buffer/exhaustmap on that. But a private Subject to manage manually. The Subject will be a Hot observable and needs manual management.
+
+----
+
 In summary:
 
 - You can get a stream from click events.<!--.element: class="fragment" -->
 - You will have to manage the subscription yourself though!<!--.element: class="fragment" -->
-- Other options are hard to properly make reactive.<!--.element: class="fragment" -->
+- Other options are hard to properly make reactive. But they work too.<!--.element: class="fragment" -->
 
 So choose wisely!<!--.element: class="fragment" -->
 
@@ -562,8 +578,6 @@ clicks$: Observable<any>;
 
 clicks$.subscribe(console.log)
 ```
-
-Whilst we wait for new reactive implementations using Ivy<!--.element: class="fragment" -->
 
 ---
 
